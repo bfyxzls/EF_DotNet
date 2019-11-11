@@ -10,7 +10,8 @@ namespace taskDemo
         {
             //Do(); //由于这个是异步的，在Main方法里无法加await，所以有警告，这个没关系，不会阻塞下面的代码
             // oldEntityUpdate();
-            oldEntityFindAndNewUpdate();
+            // oldEntityFindAndNewUpdate();
+            newEntityUpdate();
             Console.WriteLine("结束");
             Console.ReadKey();
         }
@@ -18,7 +19,7 @@ namespace taskDemo
         static void oldEntityFindAndNewUpdate()
         {
             PayUserRepository payUserRepository = new PayUserRepository(new PayEntities());
-            Users user = payUserRepository.Find(1);
+            Users user = payUserRepository.Find(i => i.ID == 1);
             payUserRepository.Modify(new Users
             {
                 ID = 1,
@@ -30,7 +31,7 @@ namespace taskDemo
         static void oldEntityUpdate()
         {
             PayUserRepository payUserRepository = new PayUserRepository(new PayEntities());
-            Users user = payUserRepository.Find(1);
+            Users user = payUserRepository.Find(i => i.ID == 1);
             user.PassWord = "newpassword";
             payUserRepository.Modify(user, i => i.PassWord);
         }
@@ -40,7 +41,7 @@ namespace taskDemo
             payUserRepository.Modify(new Users
             {
                 ID = 1,
-                PassWord = "bobo3"+DateTime.Now,
+                PassWord = "bobo3" + DateTime.Now,
 
             }, i => i.PassWord);
         }

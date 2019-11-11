@@ -13,9 +13,9 @@ namespace taskDemo
         {
             this.db = db;
         }
-        public T Find(params object[] id)
+        public T Find(Expression<Func<T,bool>> predicate)
         {
-            return db.Set<T>().Find(id);
+            return db.Set<T>().AsNoTracking().FirstOrDefault(predicate);
         }
         /// <summary>
         /// 4.0 修改，如：
